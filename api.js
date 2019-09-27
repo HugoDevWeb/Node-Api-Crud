@@ -1,13 +1,11 @@
 var fs = require('fs');
 const { join } = require('path');
 const  { tmpdir } = require('os');
-
 const filename = process.argv[2];
 const dest_dir = join(tmpdir(), 'ListeDeFilm');
 const messages =  [];
 const { compareAsc, format } = require('date-fns');
 const now = format(new Date(), 'yyyy-MM-dd-hh_mm_ss')
-
 
 function pushFile(movies) {
     console.log(now)

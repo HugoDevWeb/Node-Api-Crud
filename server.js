@@ -9,9 +9,10 @@ const server = express();
 const port = 3000;
 server.use(bodyParser.json());
 server.use(cors());
-const url = `http://localhost:` + port
+const url = `http://localhost:` + port;
+const request = require('request');
+server.set('view engine', 'ejs');
 
-console.log(__filename);
 
 
 router.get('/movies', (req, res) => {
@@ -52,6 +53,18 @@ router.delete('/deleteMovie/:id', (req, res) => {
         console.log(res);
     })
 })
+
+
+router.get('/recherche', function(req, res){
+    var query = req.query.search;
+    var url = 'https://www.omdbapi.com/?s=' + query + '&apikey=aadc1b07';
+    request(url, function(error, response, body){
+        if(!error && response.statusCode == 200){
+            var data = JSON.parse(body)
+            res.render('recherche', {data: data});
+        }
+    });
+});
 
 server.use(router)
 server.listen(port, () => {
