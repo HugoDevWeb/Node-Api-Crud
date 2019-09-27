@@ -14,6 +14,15 @@ const request = require('request');
 server.set('view engine', 'ejs');
 
 
+router.get('/movie/:id', (req, res) => {
+    var {id} = req.params;
+    connection.query(`SELECT title, created_at FROM apiNodeDB WHERE id=${id}`, (err, results) => {
+        if (err) throw err;
+        console.log('There the movie you selected :', results);
+        res.end(JSON.stringify(results));
+        
+    })
+})
 
 router.get('/movies', (req, res) => {
     connection.query(`SELECT title, created_at FROM apiNodeDB`, (err, results) => {
