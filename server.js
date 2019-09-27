@@ -15,12 +15,12 @@ console.log(__filename);
 
 
 router.get('/movies', (req, res) => {
-    connection.query(`SELECT title, created_at FROM apiNodeDB`, (err, res) => {
-        pushFile(res)
+    connection.query(`SELECT title, created_at FROM apiNodeDB`, (err, results) => {
+        pushFile(results)
         .then(messages => res.status(201).json({message: messages}))
         .catch((err)=> res.status(201).json({ message : err}))
         if(err) throw err;
-        console.log('There are the movies :', res)
+        console.log('There are the movies :', results)
     });
     
 });
